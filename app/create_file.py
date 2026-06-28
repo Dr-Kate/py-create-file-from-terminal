@@ -22,15 +22,15 @@ def get_filename(args: list) -> str | None:
     return args[f_index + 1]
 
 
-def write_content_in_file(file: str) -> None:
+def write_content_in_file(filepath: str) -> None:
     lines = []
     while True:
         line = input("Enter content line: ")
         if line.lower() == "stop":
             break
         lines.append(line)
-    existing_file = os.path.exists(file) and os.path.getsize(file) > 0
-    with open(file, "a") as f:
+    existing_file = os.path.exists(filepath) and os.path.getsize(filepath) > 0
+    with open(filepath, "a") as f:
         if existing_file:
             f.write("\n")
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -49,16 +49,16 @@ def main() -> None:
         print(f"Creating new directory: {dirs_path}")
         return
     if filename and not dirs:
-        file = filename
-        write_content_in_file(file)
+        filepath = filename
+        write_content_in_file(filepath)
         print(f"Writing filename: {filename}")
         return
     if dirs and filename:
         dir_path = os.path.join(*dirs)
         os.makedirs(dir_path, exist_ok=True)
-        file = os.path.join(dir_path, filename)
-        write_content_in_file(file)
-        print(f"Creating directory and writing filename: {file}")
+        filepath = os.path.join(dir_path, filename)
+        write_content_in_file(filepath)
+        print(f"Creating directory and writing filename: {filepath}")
         return
 
 
